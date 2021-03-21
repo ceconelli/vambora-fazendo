@@ -7,27 +7,30 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
-import SvgIcon from '@material-ui/icons/Folder';
-import logo from '../../logo.svg'
+
+function deleteNote() {
+    console.log("deletar");
+}
 
 const Note = () => {
     return (
-        <ListItem>
-            <ListItemAvatar>
-                <Avatar>
-                    <FolderIcon />
-                </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-            primary="Single-line item"
-            />
-            <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete" className="deleteIcon">
-                    <DeleteIcon />
-                    {/* <SvgIcon component={logo}/> */}
-                </IconButton>
-            </ListItemSecondaryAction>
-        </ListItem>
+        <>
+            <ListItem button>
+                <ListItemAvatar>
+                    <Avatar>
+                        <FolderIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                primary="Single-line item"
+                />
+                <ListItemSecondaryAction>
+                    <IconButton onClick={deleteNote} edge="end" aria-label="delete" className="deleteIcon">
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        </>
     )
 }
 

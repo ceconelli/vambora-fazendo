@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note'
+import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,7 @@ const NotesGrid = () => {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
+    const [notes,setNotes] = React.useState(generate(<><Note /><Divider /></>,));
 
     return (
         <Grid item xs={12} md={12}>
@@ -42,9 +44,8 @@ const NotesGrid = () => {
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
-              {generate(
-                <Note />,
-              )}
+              <Divider />
+              {notes}
             </List>
           </div>
         </Grid>
