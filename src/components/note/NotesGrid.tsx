@@ -21,22 +21,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function generate(element: React.ReactElement) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
-
-
 
 const NotesGrid = () => {
+
+    const deleteNoteFather =(id:number) => {
+      console.log("delete note father ads" + String(id))
+    }
+
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
-    const [notes,setNotes] = React.useState(generate(<><Note /><Divider /></>,));
-
+    const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note key={value} onclickfunc={() => deleteNoteFather(value)} />));
+  
+    console.log(notes)
     return (
         <Grid item xs={12} md={12}>
           <Typography variant="h6" className={classes.title}>
