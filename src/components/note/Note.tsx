@@ -7,13 +7,24 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import { Checkbox } from '@material-ui/core';
 
 interface noteProps {
     onclickfunc: any,
-    noteText: string
+    noteText: string,
+    switchOn: boolean
 }
 
 const Note = (props: noteProps) => {
+    let deleteOrSelectButton;
+    if (props.switchOn) {
+        deleteOrSelectButton = <IconButton onClick={props.onclickfunc} edge="end" aria-label="delete" className="deleteIcon">
+                                    <DeleteIcon />
+                                </IconButton>
+        } else {
+            deleteOrSelectButton = <IconButton edge="end"> <Checkbox/> </IconButton>   
+    }
+
     return (
         <>
             <ListItem button>
@@ -26,9 +37,7 @@ const Note = (props: noteProps) => {
                 primary={props.noteText}
                 />
                 <ListItemSecondaryAction>
-                    <IconButton onClick={props.onclickfunc} edge="end" aria-label="delete" className="deleteIcon">
-                        <DeleteIcon />
-                    </IconButton>
+                    {deleteOrSelectButton}                   
                 </ListItemSecondaryAction>
             </ListItem>
         </>

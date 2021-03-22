@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note'
-import { Divider } from '@material-ui/core';
+import { Divider, Switch } from '@material-ui/core';
 import MountChecker from '../../utils/MountChecker'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,7 +28,8 @@ const NotesGrid = () => {
     const [noteToRemove,setNoteToRemove] = React.useState(-1);
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
-    const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note noteText={String("note " + value)} key={value} onclickfunc={() => setNoteToRemove(value)} />));
+    const [deleteOrSelect,setDeleteOrSelect] = React.useState(true);
+    const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note switchOn={deleteOrSelect} noteText={String("note " + value)} key={value} onclickfunc={() => setNoteToRemove(value)} />));
     const isMount = MountChecker();
     
     React.useEffect(() => {
@@ -39,11 +40,26 @@ const NotesGrid = () => {
       }
     }, [noteToRemove])
 
-    
+    React.useEffect(() => {
+      console.log(notes)
+      notes.map((note) => {
+        console.log(note.props.switchOn)
+      })
+      setNotes(notes.map((note) => {
+        return <Note switchOn={!note.props.switchOn} noteText={String("note " + note.key)} key={note.key} onclickfunc={() => setNoteToRemove(note.key)} />
+      }))
+    }, [deleteOrSelect])
+
+    const switchChanged = () => {
+      setDeleteOrSelect(!deleteOrSelect);
+      console.log('switch')
+    }
+
     return (
         <Grid item xs={12} md={12}>
           <Typography variant="h6" className={classes.title}>
             Your Notes {notes.length}
+            <Switch onChange={switchChanged}/>
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
