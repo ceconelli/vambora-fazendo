@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note'
 import { Divider } from '@material-ui/core';
+import MountChecker from '../../utils/MountChecker'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,16 +29,17 @@ const NotesGrid = () => {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note noteText={String("note " + value)} key={value} onclickfunc={() => setNoteToRemove(value)} />));
-  
+    const isMount = MountChecker();
+    
     React.useEffect(() => {
-      if (noteToRemove != -1) {
+      if (isMount) {
         setNotes(notes.filter((note) => {
           return note.key != noteToRemove
         })) 
       }
     }, [noteToRemove])
 
-    console.log(notes)
+    
     return (
         <Grid item xs={12} md={12}>
           <Typography variant="h6" className={classes.title}>
