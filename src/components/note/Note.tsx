@@ -5,16 +5,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-function deleteNote() {
-    console.log("deletar");
-}
-
 interface noteProps {
-    onclickfunc: any
+    onclickfunc: any,
+    noteText: string
 }
 
 const Note = (props: noteProps) => {
@@ -27,7 +23,7 @@ const Note = (props: noteProps) => {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                primary="Single-line item"
+                primary={props.noteText}
                 />
                 <ListItemSecondaryAction>
                     <IconButton onClick={props.onclickfunc} edge="end" aria-label="delete" className="deleteIcon">

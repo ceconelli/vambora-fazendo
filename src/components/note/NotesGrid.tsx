@@ -24,20 +24,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NotesGrid = () => {
 
-    const deleteNoteFather =(id:number) => {
-      console.log("delete note father ads" + String(id))
-    }
-
+    const [noteToRemove,setNoteToRemove] = React.useState(-1);
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
-    const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note key={value} onclickfunc={() => deleteNoteFather(value)} />));
+    const [notes,setNotes] = React.useState([0, 1, 2, 3].map((value) => <Note noteText={String("note " + value)} key={value} onclickfunc={() => setNoteToRemove(value)} />));
   
+    React.useEffect(() => {
+      if (noteToRemove != -1) {
+        setNotes(notes.filter((note) => {
+          return note.key != noteToRemove
+        })) 
+      }
+    }, [noteToRemove])
+
     console.log(notes)
     return (
         <Grid item xs={12} md={12}>
           <Typography variant="h6" className={classes.title}>
-            Your Notes
+            Your Notes {notes.length}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
